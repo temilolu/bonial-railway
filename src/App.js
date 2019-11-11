@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/Header';
+import { connect } from 'react-redux';
+import PassengersForm from './components/PassengersForm';
+import DisplayTrains from './components/DisplayTrains';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+	render() {
+		return (
+			<React.Fragment>
+				<Header name='Bonial app' />
+				<div className='container my-5'>
+					{this.props.displayPassengersForm && <PassengersForm />}
+
+					{!this.props.displayPassengersForm && <DisplayTrains />}
+				</div>
+			</React.Fragment>
+		);
+	}
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+	displayPassengersForm: state.reducer.displayPassengersForm
+});
+
+export default connect(mapStateToProps)(App);
